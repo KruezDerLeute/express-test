@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My APP</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <p id="text"></p>
+        <button onclick="add()">Add</button>
+        <script>
+            const textP = document.getElementById("text");
+
+            function fetchData(){
+                fetch("/hello").then(async (res) => {
+                const data = await res.json();
+
+                textP.innerHTML = data.count;
+            });
+            }
+
+            fetchData();
+
+            function add(){
+                fetch("/hello", {
+                    method: "POST"
+                }).then(() => fetchData());
+            }
+        </script>
+    </body>
+</html>
